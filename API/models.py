@@ -16,5 +16,6 @@ class Event(db.Model):
     address = db.Column(db.String(50)) 
     dateIni = db.Column(db.DateTime)
     dateFinal = db.Column(db.DateTime)
+    creationDate = db.Column(db.DateTime)
     isVirtual = db.Column(db.Boolean, default=True) 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

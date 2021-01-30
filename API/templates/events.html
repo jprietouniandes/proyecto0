@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table is-info" 
+style="margin-left: auto;margin-right: auto;">
+<h3 class="title">Mis eventos</h3>
+  <thead>
+    <tr>
+      <th>Nombre del evento</th>
+      <th>Lugar</th>
+      <th>Feha de creación del evento</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in events %}
+    <tr>
+      <td>{{event.name}}</td>
+      <td>{{event.place}}</td>
+      <td>{{event.creationDate}}</td>
+      <td>
+        <a class="button is-success" href="/putevent/{{event.id}}"  title="Editar">Editar</a>
+        <a class="button is-danger" href="/deleteevent/{{event.id}}" title="Eliminar">Eliminar</a>
+        <a class="button is-info" href="/getevent/{{event.id}}", title="Informacion del evento">Ver</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

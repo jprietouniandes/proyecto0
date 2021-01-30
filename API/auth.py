@@ -6,7 +6,12 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
+@auth.route('/create')
+@login_required
+def crear():
+    return render_template('create_event.html')
+
+@auth.route('/')
 def login():
     return render_template('login.html')
 
@@ -18,12 +23,16 @@ def signup():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.login'))
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
     email = request.form.get('email')
     password = request.form.get('password')
+
+    if not email or not password:
+        flash('Campos vacios, ingrese los campos e intente de nuevo')
+        return redirect(url_for('auth.signup')) 
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
 
@@ -47,12 +56,16 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
+    if not email or not password:
+        flash('Campos vacios, ingrese los campos e intente de nuevo')
+        return redirect(url_for('auth.login')) # if 
+
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
+        flash('Por favor revise los campos e intente de nuevo')
         return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
 
     login_user(user, remember=remember)
     # if the above check passes, then we know the user has the right credentials
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('services.eventsGet'))

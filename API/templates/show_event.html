@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column column is-5 is-offset-5" style="background-color:burlywood; margin-left: auto;margin-right: auto;">
+  <h3 class="title">Datos del evento</h3>
+  <div class="box">
+    <form action="/getevents">
+      <div class="card" style="background-color:lightgray;">
+        <div class="card-content">
+          <div class="content">
+            Nombre del evento: {{event.name}}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            Categoria: {{event.category}}
+          </div>
+        </div>
+      </div>
+      <div class="card" style="background-color:lightgray;">
+        <div class="card-content">
+          <div class="content">
+            Lugar: {{event.place}}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            Dirección: {{event.address}}
+          </div>
+        </div>
+      </div>
+      <div class="card" style="background-color:lightgray;">
+        <div class="card-content">
+          <div class="content">
+            Fecha de inicio: {{event.dateIni}}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            Fecha final: {{event.dateFinal}}
+          </div>
+        </div>
+      </div>
+      <div class="card" style="background-color:lightgray;">
+        <div class="card-content">
+          <div class="content">
+            Tipo de evento:
+            {% if event.isVirtual %}
+            Virtual
+            {% else %}
+            Presencial
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      </br>
+      <button class="button is-block is-primary is-rounded is-large is-fullwidth">OK</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

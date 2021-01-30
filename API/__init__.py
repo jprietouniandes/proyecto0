@@ -8,6 +8,7 @@ from flask_login import LoginManager
 from sqlalchemy import create_engine
 from flask_marshmallow import Marshmallow
 
+
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 ma = Marshmallow()
@@ -23,6 +24,12 @@ def create_app():
 
     db.init_app(app)
     ma.init_app(app)
+
+
+    #api.add_resource(EventsGet,'/events/<int:id_user>')    
+    #api.add_resource(EventsSet,'/events')
+    #api.add_resource(EventOne,'/events/<int:id_event>')  
+
     api.init_app(app)
 
     login_manager = LoginManager()
@@ -42,6 +49,18 @@ def create_app():
 
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    app.register_blueprint(main_blueprint)  
+
+       # blueprint for non-auth parts of app
+    from .services import services as services_blueprint
+    app.register_blueprint(services_blueprint)  
+
 
     return app
+
+
+
+
+
+
+
