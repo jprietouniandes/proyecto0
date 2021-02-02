@@ -7,7 +7,6 @@ from . import db
 auth = Blueprint('auth', __name__)
 
 @auth.route('/create')
-@login_required
 def crear():
     return render_template('create_event.html')
 

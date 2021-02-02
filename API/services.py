@@ -9,12 +9,10 @@ from datetime import datetime
 services = Blueprint('services', __name__)
 
 @services.route('/event/create')
-@login_required
 def eventCreate():
     return render_template('create_event.html')
 
 @services.route('/event/created', methods=['POST'])
-@login_required
 def eventCreated():
 
     if not request.form.get('name') or not request.form.get('category') or not request.form.get('place') or not request.form.get('address') or not request.form.get('dateIni') or not request.form.get('dateFinal') or not request.form.get('isVirtual'):
@@ -51,20 +49,17 @@ def eventCreated():
     return render_template('events.html', events=events)
 
 @services.route('/getevents', methods=['GET'])
-@login_required
 def eventsGet():
     events = Event.query.filter_by(user_id=current_user.id).order_by(Event.creationDate.desc()).all() 
     return render_template('events.html', events=events)
 
 
 @services.route('/getevent/<int:id_event>', methods=['GET'])
-@login_required
 def evenGet(id_event):
     event = Event.query.get_or_404(id_event)
     return render_template('show_event.html', event=event)
 
 @services.route('/putevent/<int:id_event>')
-@login_required
 def evenPut(id_event):
     event = Event.query.get_or_404(id_event)
 
@@ -80,7 +75,6 @@ def evenPut(id_event):
 
 
 @services.route('/deleteevent/<int:id_event>')
-@login_required
 def evenDelete(id_event):
     event = Event.query.get_or_404(id_event)
     db.session.delete(event)
@@ -92,7 +86,6 @@ def evenDelete(id_event):
 
 
 @services.route('/event/edited<int:id_event>', methods=['POST'])
-@login_required
 def eventEdited(id_event):
     event = Event.query.get_or_404(id_event)
 
